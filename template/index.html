@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="John Doe"/>
+
+    <title>Empty Bootstrap Page for younic</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="/resource/css/main.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">younic</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" th:each="res : ${FS.list('/content/main')}" th:if="${res.container}" th:classappend="${res.equals(currentPage)} ? active : notactive">
+            <a class="nav-link" th:href="${res.qualifiedName+'.html'}" th:text="${res.displayName}" aria-haspopup="true" aria-expanded="false">Nav Link</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" th:href="${res.qualifiedName+'/'+sub.name+'.html'}" th:each="sub : ${FS.list(res.qualifiedName+'/')}" th:if="${sub.container}" th:text="${sub.displayName}">
+                Sub Nav Link
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container" th:utext="${mainjumbotron}">
+        <h1 class="display-4">Jumbo Headline</h1>
+        <p>Jumbo subline with Lorem Ipsum.</p>
+      </div>
+    </div>
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <!-- MAIN-TPL -->
+      </div>
+
+    </main><!-- /.container -->
+
+    <footer class="container-fluid footer border-top">
+      <div class="row">
+        <div class="col-12 col-md">
+          <img class="mb-2" src="../../assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+          <small class="d-block mb-3 text-muted">© 2017-2018</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Features</h5>
+          <ul class="list-unstyled text-small">
+            <li th:each="res : ${FS.list('/content/footer')}" th:if="${res.container}" th:classappend="${res.equals(currentPage)} ? active : notactive">
+              <a class="text-muted" th:href="${res.qualifiedName+'.html'}" th:text="${res.displayName}">Footer Link</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Resource</a></li>
+            <li><a class="text-muted" href="#">Resource name</a></li>
+            <li><a class="text-muted" href="#">Another resource</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Privacy</a></li>
+            <li><a class="text-muted" href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/resource/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
