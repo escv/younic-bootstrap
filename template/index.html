@@ -24,27 +24,21 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- Menu start -->
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" th:each="res : ${FS.list('/content/main')}" th:if="${res.container}" th:classappend="${res.equals(currentPage)} ? active : notactive">
-            <a class="nav-link" th:href="${res.qualifiedName+'.html'}" th:text="${res.displayName}" aria-haspopup="true" aria-expanded="false">Nav Link</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" th:href="${res.qualifiedName+'/'+sub.name+'.html'}" th:each="sub : ${FS.list(res.qualifiedName+'/')}" th:if="${sub.container}" th:text="${sub.displayName}">
+          <li class="nav-item" th:each="res : ${FS.list('/content/main')}" th:if="${res.container}" th:with="sublist=${FS.list(res.qualifiedName+'/')}" th:classappend="|${res.equals(currentPage) ? 'active' : 'notactive'} ${sublist.empty ? '' : 'dropdown'}|">
+            <a class="nav-link" th:href="${res.qualifiedName+'.html'}" th:text="${res.displayName}" th:attrappend="data-toggle=${sublist.empty?'none':'dropdown'}" th:classappend="${sublist.empty} ? leaf : dropdown-toggle" aria-haspopup="true" aria-expanded="false">Nav Link</a>
+            <div th:if="${!sublist.empty}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" th:href="${res.qualifiedName+'/'+sub.name+'.html'}" th:each="sub : ${sublist}" th:if="${sub.container}" th:text="${sub.displayName}">
                 Sub Nav Link
               </a>
             </div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
         </ul>
-
       </div>
+      <!-- Menu end -->
+
     </nav>
 
     <div class="jumbotron jumbotron-fluid">
